@@ -32,3 +32,4 @@ string PC::getHost()
 {
 	return this ->host;
 }
+

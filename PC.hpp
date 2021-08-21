@@ -17,4 +17,6 @@ class PC
 		
 		void setHost(string);
 		string getHost();
+		
+		
 };

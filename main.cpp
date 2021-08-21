@@ -14,7 +14,7 @@ string consolaPC(string);
 int main(int argc, char** argv) 
 {
 	vector<PC*> lista;
-	
+	PC* compu;
 	int opcion = 0;
 	
 	while ((opcion = menu()) != 3)
@@ -81,8 +81,7 @@ int main(int argc, char** argv)
 					host[j] = '\0';
 					// Fin quitar espacios
 					
-					cout << IP << endl;
-					PC* compu = new PC(IP, mascara, host);
+					compu = new PC(IP, mascara, host);
 					lista.push_back(compu);
 					
 				} break;
@@ -110,7 +109,7 @@ int main(int argc, char** argv)
 								comandoIP = comando.substr(5);
 								if (verificarIP(comandoIP))
 								{
-									
+									comandoPing(lista[i], comandoIP, lista);
 								}
 								else cout << "Direccion IP ingresada no valida." << endl;
 							}
@@ -121,6 +120,7 @@ int main(int argc, char** argv)
 		}
 	}
 	
+	delete compu;
 	return 0;
 }
 
@@ -141,6 +141,8 @@ int menu()
 
 bool verificarIP(string ip)
 {
+	
+	//Cuenta la cantidad de puntos
 	int cont = 0;
 	for (int i = 0; i < ip.size(); i++)
 	{
@@ -154,6 +156,21 @@ bool verificarIP(string ip)
 		return true;
 	}
 	else return false;
+	//Fin contador de puntos
+	
+	//Revisa que los numeros esten en el rango correcto 0-255
+	stringstream ss(ip);
+	string token;
+	
+	while (getline(ss, token, '.'))
+	{
+		int num = stoi(token);
+		if ((num > 255) || (num < 0))
+		{
+			return false;
+		}
+	}
+	//Fin revision
 }
 
 string consolaPC(string host)
