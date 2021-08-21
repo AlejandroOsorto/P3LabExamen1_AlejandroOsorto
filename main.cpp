@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 
 #include "PC.hpp"
 #include "Red.hpp"
@@ -151,18 +152,17 @@ bool verificarIP(string ip)
 			cont++;
 		}
 	}
-	if (cont == 3)
+	if (!cont == 3)
 	{
-		return true;
+		return false;
 	}
-	else return false;
 	//Fin contador de puntos
 	
 	//Revisa que los numeros esten en el rango correcto 0-255
-	stringstream ss(ip);
+	stringstream cadena(ip);
 	string token;
 	
-	while (getline(ss, token, '.'))
+	while (getline(cadena, token, '.'))
 	{
 		int num = stoi(token);
 		if ((num > 255) || (num < 0))
@@ -171,6 +171,8 @@ bool verificarIP(string ip)
 		}
 	}
 	//Fin revision
+	
+	return true;
 }
 
 string consolaPC(string host)

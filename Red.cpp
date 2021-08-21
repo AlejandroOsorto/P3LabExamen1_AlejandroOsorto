@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 
 #include "Red.hpp"
 
@@ -55,7 +56,15 @@ void comandoPing(PC* pc, string ipe, vector<PC*> lista)
 {
 	if (buscarIP(lista, ipe))
 	{
+		//SEPARA LOS NUMEROS DE LA IP PARA CONVERTIRLOS A BINARIO
+		stringstream cadena(ip);
+		string token;
 		
+		while (getline(cadena, token, '.'))
+		{
+			int num = stoi(token);
+			
+		}
 	}
 	else ping(3, ipe);
 }
